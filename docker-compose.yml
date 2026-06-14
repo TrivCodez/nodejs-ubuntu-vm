@@ -1,0 +1,22 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: node-ubuntu-vm
+    restart: unless-stopped
+
+    ports:
+      - "3000:3000"
+
+    environment:
+      NODE_ENV: production
+
+    volumes:
+      # live code sync (remove in production if you want fully immutable builds)
+      - .:/app
+      - /app/node_modules
+
+    working_dir: /app
+
+    command: npm start
